@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.lang.String;
 
 public class Duke {
-    public static String[] toDoList = new String[100];
+    public static Task[] toDoList = new Task[100];
     public static int taskCount = 0;
 
     public static final String LINE_HEADER = "\t---------------------------------------";
@@ -27,6 +27,12 @@ public class Duke {
                 blah();
             } else if (inputCommand.equals("add")) {
                 addToList();
+            } else {
+                String[] commandWords = inputCommand.split(" ");
+                if (commandWords[0].equals("done")){
+                    int taskNumber = Integer.parseInt(commandWords[1])-1;
+                    markTaskAsDone(taskNumber);
+                }
             }
             inputCommand = getCommand();
         } while(!inputCommand.equals("bye"));
@@ -48,12 +54,13 @@ public class Duke {
     }
 
     static void listAllTasks(){
-        System.out.println("list");
-        System.out.println(LINE_HEADER);
         int taskNumber = 1;
 
-        for (String task: Arrays.copyOf(toDoList, taskCount)){
-            System.out.println(taskNumber + ". " + task);
+        System.out.println("list");
+        System.out.println(LINE_HEADER);
+        for (Task task: Arrays.copyOf(toDoList, taskCount)){
+            String icon = task.getStatusIcon();
+            System.out.println(taskNumber + ". " + "[" + icon + "] " + task.description);
             taskNumber++;
         }
 
@@ -75,17 +82,29 @@ public class Duke {
     }
 
     static void addToList(){
-        String task;
+        String taskDescription;
 
         Scanner in = new Scanner(System.in);
-        task = in.nextLine();
+        taskDescription = in.nextLine();
+        Task t = new Task(taskDescription);
 
         System.out.println(LINE_HEADER);
-        System.out.println("added: " + task);
+        System.out.println("added: " + t.description);
 
-        toDoList[taskCount] = task;
+        toDoList[taskCount] = t;
         taskCount++;
 
         System.out.println(LINE_HEADER);
     }
+
+    static void markTaskAsDone(int taskNumber){
+        Task task = toDoList[taskNumber];
+        task.markAsDone();
+        System.out.println(LINE_HEADER);
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.description);
+        System.out.println(LINE_HEADER);
+    }
 }
+
+
