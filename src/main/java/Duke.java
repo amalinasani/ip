@@ -5,39 +5,40 @@ import java.lang.String;
 public class Duke {
     public static Task[] toDoList = new Task[100];
     public static int taskCount = 0;
-
-    public static final String LINE_HEADER = "\t---------------------------------------";
+    public static final String LINE_HEADER = "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄";
 
     public static void main(String[] args) {
         String inputCommand;
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _      _       ____  ___ ___   ____ \n"
+                + "| |    | |     /    ||   |   | /    |\n"
+                + "| |    | |    |  o  || _   _ ||  o  |\n"
+                + "| |___ | |___ |     ||  \\_/  ||     |\n"
+                + "|     ||     ||  _  ||   |   ||  _  |\n"
+                + "|     ||     ||  |  ||   |   ||  |  |\n"
+                + "|_____||_____||__|__||___|___||__|__|";
         System.out.println("Hello from\n" + logo);
         greet();
 
-        inputCommand = getCommand();
-
         do {
-            if (inputCommand.equals("list")) {
-                listAllTasks();
-            } else if (inputCommand.equals("blah")) {
-                blah();
-            } else if (inputCommand.equals("add")) {
-                addToList();
-            } else {
-                String[] commandWords = inputCommand.split(" ");
-                if (commandWords[0].equals("done")){
+            inputCommand = getCommand();
+            switch (inputCommand){
+                case "list":
+                    listAllTasks();
+                    break;
+                case "add":
+                    addToList();
+                    break;
+                case "bye":
+                    goodbye();
+                    break;
+                case "done":
+                    String[] commandWords = inputCommand.split(" ");
                     int taskNumber = Integer.parseInt(commandWords[1])-1;
                     markTaskAsDone(taskNumber);
-                }
             }
-            inputCommand = getCommand();
-        } while(!inputCommand.equals("bye"));
+        } while (!inputCommand.equals("bye"));
 
-        goodbye();
+
     }
 
     static String getCommand(){
@@ -48,9 +49,7 @@ public class Duke {
     }
 
     static void greet(){
-        System.out.println(LINE_HEADER);
-        System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?\n");
-        System.out.println(LINE_HEADER);
+        System.out.println(LINE_HEADER+ "\n\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?\n" + LINE_HEADER);
     }
 
     static void listAllTasks(){
@@ -67,18 +66,35 @@ public class Duke {
         System.out.println(LINE_HEADER);
     }
 
-    static void blah(){
-        System.out.println("blah");
-        System.out.println(LINE_HEADER);
-        System.out.println("\tblah");
-        System.out.println(LINE_HEADER);
-    }
-
     static void goodbye(){
         System.out.println("bye");
-        System.out.println(LINE_HEADER);
-        System.out.println("\tBye. Hope to see you again soon!\n");
-        System.out.println(LINE_HEADER);
+
+        String logo = "                          ▓▓  ▓▓                                        \n" +
+                "                        ▓▓░░▓▓░░▓▓                                      \n" +
+                "                      ▓▓▓▓░░░░░░▓▓                                      \n" +
+                "                    ▓▓░░░░░░██░░▓▓                                      \n" +
+                "                    ▓▓░░░░░░░░░░▓▓                                      \n" +
+                "                      ▓▓▓▓░░░░░░▓▓                                      \n" +
+                "                          ▓▓░░░░▓▓                                      \n" +
+                "                          ▓▓░░░░▓▓                ▓▓                    \n" +
+                "                          ▓▓░░░░▓▓              ▓▓░░▓▓                  \n" +
+                "                          ▓▓░░░░▓▓              ▓▓░░▓▓                  \n" +
+                "                          ▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓                  \n" +
+                "                          ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓                    \n" +
+                "                          ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓                    \n" +
+                "                          ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓                    \n" +
+                "                          ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓                    \n" +
+                "                          ▒▒░░▒▒░░▒▒▒▒░░░░░░░░░░▒▒▓▓                    \n" +
+                "                            ▓▓░░░░░░░░░░░░░░░░░░▓▓                      \n" +
+                "                            ▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓░░▓▓                      \n" +
+                "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
+                "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
+                "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
+                "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
+                "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
+                "                              ▒▒  ▓▓      ▓▓  ▓▓  \n";
+
+        System.out.println(LINE_HEADER + "\n\tGoodbye!\n" + logo + LINE_HEADER);
     }
 
     static void addToList(){
