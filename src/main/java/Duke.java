@@ -5,7 +5,7 @@ import java.lang.String;
 public class Duke {
     public static Task[] toDoList = new Task[100];
     public static int taskCount = 0;
-    public static final String LINE_HEADER = "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄";
+    public static final String LINE_HEADER = "\n▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
 
     public static void main(String[] args) {
         String inputCommand;
@@ -17,58 +17,70 @@ public class Duke {
                 + "|     ||     ||  |  ||   |   ||  |  |\n"
                 + "|_____||_____||__|__||___|___||__|__|";
         System.out.println("Hello from\n" + logo);
-        greet();
+        printGreeting();
 
         do {
             inputCommand = getCommand();
-            switch (inputCommand){
+            Scanner taskObj = new Scanner(inputCommand);
+
+            switch (taskObj.next()){
                 case "list":
                     listAllTasks();
                     break;
-                case "add":
-                    addToList();
-                    break;
+
                 case "bye":
-                    goodbye();
+                    printGoodbye();
                     break;
+
                 case "done":
                     String[] commandWords = inputCommand.split(" ");
                     int taskNumber = Integer.parseInt(commandWords[1])-1;
                     markTaskAsDone(taskNumber);
+                    break;
+
+                case "todo":
+                    String taskDetails = inputCommand.substring(4);
+                    addTask(new ToDo(taskDetails));
+                    break;
+
+                case "deadline":
+                    taskDetails = inputCommand.substring(8);
+                    String[] detailsWords = taskDetails.split("/by ");
+                    addTask(new Deadline(detailsWords[0], detailsWords[1]));
+                    break;
+
+                case "event":
+                    taskDetails = inputCommand.substring(5);
+                    detailsWords = taskDetails.split("/at ");
+                    addTask(new Event(detailsWords[0], detailsWords[1]));
+                    break;
             }
         } while (!inputCommand.equals("bye"));
-
-
     }
 
     static String getCommand(){
-        String inputCommand;
         Scanner in = new Scanner(System.in);
-        inputCommand = in.nextLine();
-        return inputCommand;
+        return in.nextLine();
     }
 
-    static void greet(){
-        System.out.println(LINE_HEADER+ "\n\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?\n" + LINE_HEADER);
+    static void printGreeting(){
+        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
     }
 
     static void listAllTasks(){
         int taskNumber = 1;
 
-        System.out.println("list");
-        System.out.println(LINE_HEADER);
+        System.out.println("list" + LINE_HEADER);
         for (Task task: Arrays.copyOf(toDoList, taskCount)){
-            String icon = task.getStatusIcon();
-            System.out.println(taskNumber + ". " + "[" + icon + "] " + task.description);
+            System.out.print(taskNumber + ". ");
+            System.out.println(task);
             taskNumber++;
         }
-
         System.out.println(LINE_HEADER);
     }
 
-    static void goodbye(){
+    static void printGoodbye(){
         System.out.println("bye");
-
         String logo = "                          ▓▓  ▓▓                                        \n" +
                 "                        ▓▓░░▓▓░░▓▓                                      \n" +
                 "                      ▓▓▓▓░░░░░░▓▓                                      \n" +
@@ -92,34 +104,27 @@ public class Duke {
                 "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
                 "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
                 "                            ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓                      \n" +
-                "                              ▒▒  ▓▓      ▓▓  ▓▓  \n";
+                "                              ▒▒  ▓▓      ▓▓  ▓▓  ";
 
-        System.out.println(LINE_HEADER + "\n\tGoodbye!\n" + logo + LINE_HEADER);
+        System.out.println(LINE_HEADER + "\tGoodbye!\n" + logo + LINE_HEADER);
     }
 
-    static void addToList(){
-        String taskDescription;
-
-        Scanner in = new Scanner(System.in);
-        taskDescription = in.nextLine();
-        Task t = new Task(taskDescription);
-
-        System.out.println(LINE_HEADER);
-        System.out.println("added: " + t.description);
-
-        toDoList[taskCount] = t;
+    static void addTask(Task task){
+        toDoList[taskCount] = task;
         taskCount++;
-
-        System.out.println(LINE_HEADER);
+        System.out.println(LINE_HEADER + "added: " + task + LINE_HEADER);
     }
 
     static void markTaskAsDone(int taskNumber){
         Task task = toDoList[taskNumber];
-        task.markAsDone();
-        System.out.println(LINE_HEADER);
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.description);
-        System.out.println(LINE_HEADER);
+        if (task.isDone){
+            System.out.println(LINE_HEADER + "\tThis task has already been marked as done.");
+            System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.description + LINE_HEADER);
+        } else {
+            task.markAsDone();
+            System.out.println(LINE_HEADER + "\tNice! I've marked this task as done:");
+            System.out.println("\t\t" + task  + LINE_HEADER);
+        }
     }
 }
 
