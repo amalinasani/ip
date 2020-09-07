@@ -16,48 +16,48 @@
 
 
 =====================================================
-	Added: [T][✘]  read book
+	Added: [T][✘] read book
 Now you have 1 task(s) in your list!
 =====================================================
 
-list
+Task List
 =====================================================
 
-1. [T][✘]  read book
+1. [T][✘] read book
 
 =====================================================
 
 
 =====================================================
-	Added: [D][✘]  return book (by: Sunday)
+	Added: [D][✘] return book (by: Sunday)
 Now you have 2 task(s) in your list!
 =====================================================
 
 
 =====================================================
-	Added: [E][✘]  project meeting (at: Mon 2-4pm)
+	Added: [E][✘] project meeting (at: Mon 2-4pm)
 Now you have 3 task(s) in your list!
 =====================================================
 
 
 =====================================================
-	Added: [D][✘]  do homework (by: no idea :-p)
+	Added: [D][✘] do homework (by: no idea :-p)
 Now you have 4 task(s) in your list!
 =====================================================
 
 
 =====================================================
 	Nice! I've marked this task as done:
-		[T][✓]  read book
+		[T][✓] read book
 =====================================================
 
-list
+Task List
 =====================================================
 
-1. [T][✓]  read book
-2. [D][✘]  return book (by: Sunday)
-3. [E][✘]  project meeting (at: Mon 2-4pm)
-4. [D][✘]  do homework (by: no idea :-p)
+1. [T][✓] read book
+2. [D][✘] return book (by: Sunday)
+3. [E][✘] project meeting (at: Mon 2-4pm)
+4. [D][✘] do homework (by: no idea :-p)
 
 =====================================================
 
@@ -87,5 +87,4 @@ list
 |_____|                â–“â–“â–‘â–‘â–“â–“â–‘â–‘â–“â–“  â–“â–“â–‘â–‘â–“â–“â–‘â–‘â–“â–“
                          â–’â–’  â–“â–“      â–“â–“  â–“â–“
 =====================================================
-
 

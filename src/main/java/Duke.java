@@ -5,27 +5,41 @@ import java.lang.String;
 public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskCount = 0;
+
     public static final String LINE_HEADER =
             "\n=====================================================\n";
 
     public static boolean isExit = false;
+
     static Scanner in = new Scanner(System.in);
     public static String userInput;
 
     public static void main(String[] args) {
         printGreeting();
         do {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (InvalidCommandException e){
+                System.out.println("Invalid Command");
+            }
         } while (!isExit);
     }
 
     // Handles user input
-    public static void handleUserInput(){
+    public static void handleUserInput () throws InvalidCommandException{
         userInput = in.nextLine();
         String[] splitUserInput = userInput.split(" ", 2);
         String inputCommand = splitUserInput[0];
+        String details = "";
 
-        switch (inputCommand.toUpperCase()){
+        try {
+            details = splitUserInput[1];
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("No description.");
+        }
+
+
+        switch (inputCommand.toUpperCase()) {
             case "LIST":
                 listAllTasks();
                 break;
@@ -35,49 +49,40 @@ public class Duke {
                 break;
 
             case "DONE":
-                String taskDetails = splitUserInput[1];
-                int taskNumber = Integer.parseInt(taskDetails)-1;
+                int taskNumber = Integer.parseInt(details) - 1;
                 markTaskAsDone(taskNumber);
                 break;
 
             case "TODO":
-                taskDetails = splitUserInput[1];
-                addTask(new ToDo(taskDetails));
-                break;
-
+                // Fallthrough
             case "DEADLINE":
-                taskDetails = splitUserInput[1];
-                String[] detailsWords = taskDetails.split("/by ");
-                addTask(new Deadline(detailsWords[0], detailsWords[1]));
-                break;
-
+                // Fallthrough
             case "EVENT":
-
-                taskDetails = splitUserInput[1];
-                detailsWords = taskDetails.split("/at ");
-                addTask(new Event(detailsWords[0], detailsWords[1]));
+                addTask(inputCommand.toUpperCase(), details);
                 break;
+
+            default:
+                throw new InvalidCommandException();
         }
     }
 
-    // Prints greeting and logo
-    static void printGreeting(){
-        String logo =     "  ____  ____   _      _       ____  ___ ___   ____ \n"
-                        + " /    ||    \\ | |    | |     /    ||   |   | /    |\n"
-                        + "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n"
-                        + "|     ||  |  || |___ | |___ |     ||  \\_/  ||     |\n"
-                        + "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n"
-                        + "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n"
-                        + "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
-        System.out.println(LINE_HEADER + "\t\t\t\t\tHello from\n" + logo);
-        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
-    }
-
     // Add task to taskList
-    static void addTask(Task task){
-        taskList[taskCount] = task;
+    static void addTask(String taskType, String details){
+        Task taskAdded;
+        String[] detailsWords;
+
+        if (taskType.equals("DEADLINE")){
+            detailsWords = details.split("/by ");
+            taskAdded = new Deadline(detailsWords[0], detailsWords[1]);
+        } else if (taskType.equals("EVENT")){
+            detailsWords = details.split("/at ");
+            taskAdded = new Event(detailsWords[0], detailsWords[1]);
+        } else {
+            taskAdded = new ToDo(details);
+        }
+        taskList[taskCount] = taskAdded;
         taskCount++;
-        System.out.println(LINE_HEADER + "\tAdded: " + task + "\nNow you have " + taskCount + " task(s) in your list!" + LINE_HEADER);
+        System.out.println(LINE_HEADER + "\tAdded: " + taskAdded + "\nNow you have " + taskCount + " task(s) in your list!" + LINE_HEADER);
     }
 
     // Marks task in taskList as done
@@ -102,6 +107,19 @@ public class Duke {
             taskNumber++;
         }
         System.out.println(LINE_HEADER);
+    }
+
+    // Prints greeting and logo
+    static void printGreeting(){
+        String logo =     "  ____  ____   _      _       ____  ___ ___   ____ \n"
+                + " /    ||    \\ | |    | |     /    ||   |   | /    |\n"
+                + "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n"
+                + "|     ||  |  || |___ | |___ |     ||  \\_/  ||     |\n"
+                + "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n"
+                + "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n"
+                + "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
+        System.out.println(LINE_HEADER + "\t\t\t\t\tHello from\n" + logo);
+        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
     }
 
     static void printGoodbye(){
