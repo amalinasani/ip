@@ -5,54 +5,60 @@ import java.lang.String;
 public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskCount = 0;
-    public static final String LINE_HEADER = "\n=====================================================\n";
+    public static final String LINE_HEADER =
+            "\n=====================================================\n";
+
+    public static boolean isExit = false;
+    static Scanner in = new Scanner(System.in);
+    public static String userInput;
 
     public static void main(String[] args) {
-        String inputCommand;
         printGreeting();
-
-        // Command handler
         do {
-            Scanner in = new Scanner(System.in);
-            inputCommand = in.nextLine();
-
-            String taskObj = new Scanner(inputCommand).next();
-
-            switch (taskObj){
-                case "list":
-                    listAllTasks();
-                    break;
-
-                case "bye":
-                    printGoodbye();
-                    break;
-
-                case "done":
-                    String[] commandWords = inputCommand.split(" ");
-                    int taskNumber = Integer.parseInt(commandWords[1])-1;
-                    markTaskAsDone(taskNumber);
-                    break;
-
-                case "todo":
-                    String taskDetails = inputCommand.substring(4);
-                    addTask(new ToDo(taskDetails));
-                    break;
-
-                case "deadline":
-                    taskDetails = inputCommand.substring(8);
-                    String[] detailsWords = taskDetails.split("/by ");
-                    addTask(new Deadline(detailsWords[0], detailsWords[1]));
-                    break;
-
-                case "event":
-                    taskDetails = inputCommand.substring(5);
-                    detailsWords = taskDetails.split("/at ");
-                    addTask(new Event(detailsWords[0], detailsWords[1]));
-                    break;
-            }
-        } while (!inputCommand.equals("bye"));
+            handleUserInput();
+        } while (!isExit);
     }
 
+    // Handles user input
+    public static void handleUserInput(){
+        userInput = in.nextLine();
+        String[] splitUserInput = userInput.split(" ", 2);
+        String inputCommand = splitUserInput[0];
+
+        switch (inputCommand.toUpperCase()){
+            case "LIST":
+                listAllTasks();
+                break;
+
+            case "BYE":
+                printGoodbye();
+                break;
+
+            case "DONE":
+                String taskDetails = splitUserInput[1];
+                int taskNumber = Integer.parseInt(taskDetails)-1;
+                markTaskAsDone(taskNumber);
+                break;
+
+            case "TODO":
+                taskDetails = splitUserInput[1];
+                addTask(new ToDo(taskDetails));
+                break;
+
+            case "DEADLINE":
+                taskDetails = splitUserInput[1];
+                String[] detailsWords = taskDetails.split("/by ");
+                addTask(new Deadline(detailsWords[0], detailsWords[1]));
+                break;
+
+            case "EVENT":
+
+                taskDetails = splitUserInput[1];
+                detailsWords = taskDetails.split("/at ");
+                addTask(new Event(detailsWords[0], detailsWords[1]));
+                break;
+        }
+    }
 
     // Prints greeting and logo
     static void printGreeting(){
@@ -89,7 +95,7 @@ public class Duke {
     // List all tasks in taskList
     static void listAllTasks(){
         int taskNumber = 1;
-        System.out.println("list" + LINE_HEADER);
+        System.out.println("Task List" + LINE_HEADER);
         for (Task task: Arrays.copyOf(taskList, taskCount)){
             System.out.print(taskNumber + ". ");
             System.out.println(task);
@@ -124,6 +130,7 @@ public class Duke {
                 "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
 
         System.out.println(LINE_HEADER + logo + LINE_HEADER);
+        isExit = true;
     }
 }
 
