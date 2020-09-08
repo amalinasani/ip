@@ -19,25 +19,17 @@ public class Duke {
         do {
             try {
                 handleUserInput();
-            } catch (InvalidCommandException e){
-                System.out.println("Invalid Command");
+            } catch (DukeException e){
+                System.out.println("I don't know what that means (u(エ)u)ゞ");
             }
         } while (!isExit);
     }
 
     // Handles user input
-    public static void handleUserInput () throws InvalidCommandException{
+    public static void handleUserInput () throws DukeException{
         userInput = in.nextLine();
         String[] splitUserInput = userInput.split(" ", 2);
         String inputCommand = splitUserInput[0];
-        String details = "";
-
-        try {
-            details = splitUserInput[1];
-        } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("No description.");
-        }
-
 
         switch (inputCommand.toUpperCase()) {
             case "LIST":
@@ -49,7 +41,7 @@ public class Duke {
                 break;
 
             case "DONE":
-                int taskNumber = Integer.parseInt(details) - 1;
+                int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
                 markTaskAsDone(taskNumber);
                 break;
 
@@ -58,7 +50,11 @@ public class Duke {
             case "DEADLINE":
                 // Fallthrough
             case "EVENT":
-                addTask(inputCommand.toUpperCase(), details);
+                try {
+                    addTask(inputCommand.toUpperCase(), splitUserInput[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("You've forgotten to add a description!");
+                }
                 break;
 
             default:

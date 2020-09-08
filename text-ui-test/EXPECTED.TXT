@@ -61,6 +61,20 @@ Task List
 
 =====================================================
 
+I don't know what that means (u(ã‚¨)u)ã‚ž
+You've forgotten to add a description!
+You've forgotten to add a description!
+You've forgotten to add a description!
+Task List
+=====================================================
+
+1. [T][✓] read book
+2. [D][✘] return book (by: Sunday)
+3. [E][✘] project meeting (at: Mon 2-4pm)
+4. [D][✘] do homework (by: no idea :-p)
+
+=====================================================
+
 
 =====================================================
 
