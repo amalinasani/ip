@@ -1,6 +1,12 @@
+package duke;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.lang.String;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.ToDo;
+import duke.task.Event;
 
 public class Duke {
     public static Task[] taskList = new Task[100];
@@ -41,10 +47,13 @@ public class Duke {
                 break;
 
             case "DONE":
-                int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
-                markTaskAsDone(taskNumber);
+                try {
+                    int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
+                    markTaskAsDone(taskNumber);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Which task?");
+                }
                 break;
-
             case "TODO":
                 // Fallthrough
             case "DEADLINE":
@@ -84,7 +93,7 @@ public class Duke {
     // Marks task in taskList as done
     static void markTaskAsDone(int taskNumber){
         Task task = taskList[taskNumber];
-        if (task.isDone){
+        if (task.getStatus()){
             System.out.println(LINE_HEADER + "\tThis task has already been marked as done.");
         } else {
             task.markAsDone();
