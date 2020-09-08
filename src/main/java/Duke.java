@@ -5,73 +5,80 @@ import java.lang.String;
 public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskCount = 0;
-    public static final String LINE_HEADER = "\n=====================================================\n";
+
+    public static final String LINE_HEADER =
+            "\n=====================================================\n";
+
+    public static boolean isExit = false;
+
+    static Scanner in = new Scanner(System.in);
+    public static String userInput;
 
     public static void main(String[] args) {
-        String inputCommand;
         printGreeting();
-
-        // Command handler
         do {
-            Scanner in = new Scanner(System.in);
-            inputCommand = in.nextLine();
-
-            String taskObj = new Scanner(inputCommand).next();
-
-            switch (taskObj){
-                case "list":
-                    listAllTasks();
-                    break;
-
-                case "bye":
-                    printGoodbye();
-                    break;
-
-                case "done":
-                    String[] commandWords = inputCommand.split(" ");
-                    int taskNumber = Integer.parseInt(commandWords[1])-1;
-                    markTaskAsDone(taskNumber);
-                    break;
-
-                case "todo":
-                    String taskDetails = inputCommand.substring(4);
-                    addTask(new ToDo(taskDetails));
-                    break;
-
-                case "deadline":
-                    taskDetails = inputCommand.substring(8);
-                    String[] detailsWords = taskDetails.split("/by ");
-                    addTask(new Deadline(detailsWords[0], detailsWords[1]));
-                    break;
-
-                case "event":
-                    taskDetails = inputCommand.substring(5);
-                    detailsWords = taskDetails.split("/at ");
-                    addTask(new Event(detailsWords[0], detailsWords[1]));
-                    break;
+            try {
+                handleUserInput();
+            } catch (DukeException e){
+                System.out.println("I don't know what that means (u(エ)u)ゞ");
             }
-        } while (!inputCommand.equals("bye"));
+        } while (!isExit);
     }
 
+    // Handles user input
+    public static void handleUserInput () throws DukeException{
+        userInput = in.nextLine();
+        String[] splitUserInput = userInput.split(" ", 2);
+        String inputCommand = splitUserInput[0];
 
-    // Prints greeting and logo
-    static void printGreeting(){
-        String logo =     "  ____  ____   _      _       ____  ___ ___   ____ \n"
-                        + " /    ||    \\ | |    | |     /    ||   |   | /    |\n"
-                        + "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n"
-                        + "|     ||  |  || |___ | |___ |     ||  \\_/  ||     |\n"
-                        + "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n"
-                        + "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n"
-                        + "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
-        System.out.println(LINE_HEADER + "\t\t\t\t\tHello from\n" + logo);
-        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
+        switch (inputCommand.toUpperCase()) {
+            case "LIST":
+                listAllTasks();
+                break;
+
+            case "BYE":
+                printGoodbye();
+                break;
+
+            case "DONE":
+                int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
+                markTaskAsDone(taskNumber);
+                break;
+
+            case "TODO":
+                // Fallthrough
+            case "DEADLINE":
+                // Fallthrough
+            case "EVENT":
+                try {
+                    addTask(inputCommand.toUpperCase(), splitUserInput[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("You've forgotten to add a description!");
+                }
+                break;
+
+            default:
+                throw new InvalidCommandException();
+        }
     }
 
     // Add task to taskList
-    static void addTask(Task task){
-        taskList[taskCount] = task;
+    static void addTask(String taskType, String details){
+        Task taskAdded;
+        String[] detailsWords;
+
+        if (taskType.equals("DEADLINE")){
+            detailsWords = details.split("/by ");
+            taskAdded = new Deadline(detailsWords[0], detailsWords[1]);
+        } else if (taskType.equals("EVENT")){
+            detailsWords = details.split("/at ");
+            taskAdded = new Event(detailsWords[0], detailsWords[1]);
+        } else {
+            taskAdded = new ToDo(details);
+        }
+        taskList[taskCount] = taskAdded;
         taskCount++;
-        System.out.println(LINE_HEADER + "\tAdded: " + task + "\nNow you have " + taskCount + " task(s) in your list!" + LINE_HEADER);
+        System.out.println(LINE_HEADER + "\tAdded: " + taskAdded + "\nNow you have " + taskCount + " task(s) in your list!" + LINE_HEADER);
     }
 
     // Marks task in taskList as done
@@ -89,13 +96,26 @@ public class Duke {
     // List all tasks in taskList
     static void listAllTasks(){
         int taskNumber = 1;
-        System.out.println("list" + LINE_HEADER);
+        System.out.println("Task List" + LINE_HEADER);
         for (Task task: Arrays.copyOf(taskList, taskCount)){
             System.out.print(taskNumber + ". ");
             System.out.println(task);
             taskNumber++;
         }
         System.out.println(LINE_HEADER);
+    }
+
+    // Prints greeting and logo
+    static void printGreeting(){
+        String logo =     "  ____  ____   _      _       ____  ___ ___   ____ \n"
+                + " /    ||    \\ | |    | |     /    ||   |   | /    |\n"
+                + "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n"
+                + "|     ||  |  || |___ | |___ |     ||  \\_/  ||     |\n"
+                + "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n"
+                + "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n"
+                + "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
+        System.out.println(LINE_HEADER + "\t\t\t\t\tHello from\n" + logo);
+        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
     }
 
     static void printGoodbye(){
@@ -124,6 +144,7 @@ public class Duke {
                 "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
 
         System.out.println(LINE_HEADER + logo + LINE_HEADER);
+        isExit = true;
     }
 }
 
