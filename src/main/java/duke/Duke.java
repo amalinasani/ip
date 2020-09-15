@@ -1,15 +1,15 @@
 package duke;
 
 import java.util.Scanner;
-import java.util.Arrays;
 import java.lang.String;
+import java.util.ArrayList;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Event;
 
 public class Duke {
-    public static Task[] taskList = new Task[100];
+    public static ArrayList<Task> taskList = new ArrayList<>();
     public static int taskCount = 0;
 
     public static final String LINE_HEADER =
@@ -44,6 +44,15 @@ public class Duke {
 
             case "BYE":
                 printGoodbye();
+                break;
+
+            case "DELETE":
+                try {
+                    int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
+                    deleteTask(taskNumber);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Which task?");
+                }
                 break;
 
             case "DONE":
@@ -85,14 +94,26 @@ public class Duke {
         } else {
             taskAdded = new ToDo(details);
         }
-        taskList[taskCount] = taskAdded;
+        taskList.add(taskAdded);
         taskCount++;
-        System.out.println(LINE_HEADER + "\tAdded: " + taskAdded + "\nNow you have " + taskCount + " task(s) in your list!" + LINE_HEADER);
+        System.out.println(LINE_HEADER + "\tAdded: " + taskAdded
+                            + "\nNow you have " + taskCount
+                            + " task(s) in your list!" + LINE_HEADER);
+
+    }
+
+    // Removes task from taskList
+    static void deleteTask(int taskNumber){
+        Task task = taskList.get(taskNumber);
+        taskList.remove(taskNumber);
+        System.out.println(LINE_HEADER + "\tRemoved: " + task
+                            + "\nNow you have " + taskList.size()
+                            + " task(s) in your list!" + LINE_HEADER);
     }
 
     // Marks task in taskList as done
     static void markTaskAsDone(int taskNumber){
-        Task task = taskList[taskNumber];
+        Task task = taskList.get(taskNumber);
         if (task.getStatus()){
             System.out.println(LINE_HEADER + "\tThis task has already been marked as done.");
         } else {
@@ -104,13 +125,13 @@ public class Duke {
 
     // List all tasks in taskList
     static void listAllTasks(){
-        int taskNumber = 1;
         System.out.println("Task List" + LINE_HEADER);
-        for (Task task: Arrays.copyOf(taskList, taskCount)){
-            System.out.print(taskNumber + ". ");
-            System.out.println(task);
-            taskNumber++;
+
+        for (int i =0; i < taskList.size(); i++){
+            System.out.print((i+1) + ". ");
+            System.out.println(taskList.get(i));
         }
+
         System.out.println(LINE_HEADER);
     }
 
