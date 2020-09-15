@@ -1,15 +1,15 @@
 package duke.task;
 
 public class Event extends Task {
-    protected String eventDate;
 
     public Event(String description, String eventDate) {
         super(description);
-        this.eventDate = eventDate;
+        this.date = eventDate;
+        this.taskType = 'E';
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + eventDate + ")";
+        return "[" + taskType +"]" + super.toString() + "(at: " + date + ")";
     }
 }

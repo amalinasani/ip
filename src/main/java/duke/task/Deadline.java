@@ -1,15 +1,15 @@
 package duke.task;
 
 public class Deadline extends Task{
-    protected String byDate;
 
     public Deadline(String description, String byDate) {
         super(description);
-        this.byDate = byDate;
+        this.date = byDate;
+        this.taskType = 'D';
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + byDate + ")";
+        return "[" + taskType +"]" + super.toString() + "(by: " + date + ")";
     }
 }
