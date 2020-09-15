@@ -3,6 +3,9 @@ package duke;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.lang.String;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.ToDo;
@@ -45,7 +48,9 @@ public class Duke {
             case "BYE":
                 printGoodbye();
                 break;
-
+            case "SAVE":
+                saveToFile();
+                break;
             case "DONE":
                 try {
                     int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
@@ -112,6 +117,31 @@ public class Duke {
             taskNumber++;
         }
         System.out.println(LINE_HEADER);
+    }
+
+    // Save to file
+    static void saveToFile(){
+        final String FILE_DIR = "data";
+        final String FILE_PATH = "data/data.txt";
+
+        FileWriter writer;
+        File fileDir = new File(FILE_DIR);
+
+        if (!fileDir.exists()){
+            fileDir.mkdir();
+        }
+
+        try {
+            writer = new FileWriter(FILE_PATH);
+            for (Task task: Arrays.copyOf(taskList, taskCount)){
+                writer.write(task.getTaskType() + " | " + task.getStatus() + " | "
+                        + task.getDescription() + " | " + task.getDate() + System.lineSeparator());
+                System.out.println("Successfully saved to file!");
+            }
+            writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     // Prints greeting and logo
