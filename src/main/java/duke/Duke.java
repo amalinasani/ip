@@ -17,9 +17,6 @@ public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static int taskCount = 0;
 
-    public static final String LINE_HEADER =
-            "\n=====================================================\n";
-
     public static boolean isExit = false;
 
     static Scanner in = new Scanner(System.in);
@@ -169,47 +166,6 @@ public class Duke {
         }
     }
 
-    // Prints greeting and logo
-    static void printGreeting(){
-        String logo =     "  ____  ____   _      _       ____  ___ ___   ____ \n"
-                + " /    ||    \\ | |    | |     /    ||   |   | /    |\n"
-                + "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n"
-                + "|     ||  |  || |___ | |___ |     ||  \\_/  ||     |\n"
-                + "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n"
-                + "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n"
-                + "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
-        System.out.println(LINE_HEADER + "\t\t\t\t\tHello from\n" + logo);
-        System.out.println(LINE_HEADER+ "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?" + LINE_HEADER);
-    }
-
-    static void printGoodbye(){
-        String logo =
-                "\n ____                ▓▓  ▓▓                                \n" +
-                "|    \\            ▓▓░░▓▓░░▓▓                              \n" +
-                "|  o  )          ▓▓▓▓░░░░░░▓▓                              \n" +
-                "|     |        ▓▓░░░░░░██░░▓▓                              \n" +
-                "|  O  |        ▓▓░░░░░░░░░░▓▓                              \n" +
-                "|     |          ▓▓▓▓░░░░░░▓▓                              \n" +
-                "|_____|              ▓▓░░░░▓▓                              \n" +
-                " __ __               ▓▓░░░░▓▓                ▓▓            \n" +
-                "|  |  |              ▓▓░░░░▓▓              ▓▓░░▓▓          \n" +
-                "|  |  |              ▓▓░░░░▓▓              ▓▓░░▓▓          \n" +
-                "|  ~  |              ▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓          \n" +
-                "|___, |              ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓            \n" +
-                "|     |              ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓            \n" +
-                "|____/               ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓            \n" +
-                "   ___               ▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓            \n" +
-                "  /  _]              ▒▒░░▒▒░░▒▒▒▒░░░░░░░░░░▒▒▓▓            \n" +
-                " /  [_                 ▓▓░░░░░░░░░░░░░░░░░░▓▓              \n" +
-                "|    _]                ▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓░░▓▓              \n" +
-                "|   [_                 ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓              \n" +
-                "|     |                ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓              \n" +
-                "|_____|                ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓              \n" +
-                "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
-
-        System.out.println(LINE_HEADER + logo + LINE_HEADER);
-        isExit = true;
-    }
 }
 
 
