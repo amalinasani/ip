@@ -87,6 +87,6 @@ public class Storage {
                     + task.getDescription() + " | " + task.getDate() + System.lineSeparator());
         }
         fw.close();
-        System.out.println(Ui.MESSAGE_SUCCESSFUL_SAVE);
+        System.out.println(Ui.STORAGE_MESSAGE_SUCCESSFUL_SAVE);
     }
 }

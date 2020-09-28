@@ -44,7 +44,10 @@ public class Ui {
 
 
     public static final String ERROR_MESSAGE_IOEXCEPTION = "IOException error has occurred";
-    public static final String MESSAGE_SUCCESSFUL_SAVE = "Successfully saved to file!";
+    public static final String STORAGE_MESSAGE_SUCCESSFUL_SAVE = "Successfully saved to file!";
+    public static final String TASK_MESSAGE_ALREADY_DONE = "\tThis task has already been marked as done.";
+    public static final String TASK_MESSAGE_MARK_DONE = "\tNice! I've marked this task as done:";
+
     private final Scanner in;
 
     /**
