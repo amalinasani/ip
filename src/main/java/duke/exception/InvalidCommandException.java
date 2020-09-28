@@ -1,6 +1,4 @@
-package duke.util.exeception;
-
-import duke.util.exeception.DukeException;
+package duke.exception;
 
 public class InvalidCommandException extends DukeException {
     //
