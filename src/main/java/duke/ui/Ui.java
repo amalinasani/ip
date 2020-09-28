@@ -1,6 +1,8 @@
-package duke.manager.ui;
+package duke.ui;
 
-public class UI {
+import java.util.Scanner;
+
+public class Ui {
     public static final String LINE_DIVIDER =
             "\n=====================================================\n";
     public static final String DUKE_INTRODUCTION =
@@ -40,12 +42,29 @@ public class UI {
             "|_____|                ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓              \n" +
             "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
 
+
+    public static final String ERROR_MESSAGE_IOEXCEPTION = "IOException error has occurred";
+    public static final String MESSAGE_SUCCESSFUL_SAVE = "Successfully saved to file!";
+    private final Scanner in;
+
+    /**
+     * Read user input
+     */
+    public Ui() {
+        in = new Scanner(System.in);
+    }
+
+    /**
+     * Prints line divider
+     */
     public static void printDivider(){
         System.out.println(LINE_DIVIDER);
     }
 
-    // Prints greeting and logo
-    public static void printGreeting(){
+    /**
+     * Prints greetings and logo
+     */
+    public void printGreeting(){
         printDivider();
         System.out.println(DUKE_INTRODUCTION);
         System.out.println(LOGO_NAME);
@@ -54,10 +73,12 @@ public class UI {
         printDivider();
     }
 
-    public static void printGoodbye(){
+    /**
+     * Prints goodbye message
+     */
+    public void printGoodbye(){
         printDivider();
         System.out.println(LOGO_BYE);
         printDivider();
-        isExit = true;
     }
 }
