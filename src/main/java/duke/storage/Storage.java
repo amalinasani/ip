@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Storage {
     private static final String FILE_DIR = "data";
-    private static final String FILE_PATH = "data/data.txt";
+    private static final String FILE_PATH = "data/duke.txt";
 
     public Storage(String filePath){
         File fileDir = new File(FILE_DIR);
@@ -33,7 +33,7 @@ public class Storage {
     /**
      * Check if file exists
      */
-    private File checkFileExists(String filePath) throws IOException{
+    public File checkFileExists(String filePath) throws IOException{
         File dataFile = new File(filePath);
         if (!dataFile.exists()){
             dataFile.createNewFile();
@@ -89,4 +89,5 @@ public class Storage {
         fw.close();
         System.out.println(Ui.STORAGE_MESSAGE_SUCCESSFUL_SAVE);
     }
+
 }

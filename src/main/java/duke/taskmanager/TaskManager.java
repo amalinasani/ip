@@ -6,7 +6,6 @@ import duke.task.ToDo;
 import duke.task.Event;
 import duke.ui.Ui;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -17,6 +16,9 @@ public class TaskManager {
         taskList = new ArrayList<>();
     }
 
+    public TaskManager(ArrayList<Task> taskList){
+        this.taskList = taskList;
+    }
     // Add task to taskList
     public void addTask(String taskType, String details){
         Task taskAdded;

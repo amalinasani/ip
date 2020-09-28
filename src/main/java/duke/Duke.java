@@ -1,83 +1,62 @@
 package duke;
 
-import java.util.Scanner;
-import java.lang.String;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
+import java.lang.String;
+import java.util.ArrayList;
 
-import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
+import duke.command.Command;
+import duke.exception.*;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.taskmanager.TaskManager;
+import duke.ui.Ui;
 
 public class Duke {
 
-    public static boolean isExit = false;
+    private static final String FILE_PATH = "data/duke.txt";
+    private TaskManager taskManager;
+    private Ui ui;
+    private Storage storage;
 
-    static Scanner in = new Scanner(System.in);
-    public static String userInput;
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        ui.printGreeting();
 
-    public static void main(String[] args) {
-        printGreeting();
+        try {
+            storage.checkFileExists(FILE_PATH);
+            taskManager = new TaskManager(storage.loadFromFile());
+            System.out.println("Load successful");
+        } catch (IOException e) {
+            System.out.println("Load error");
+            taskManager = new TaskManager();
+        } finally {
+            Ui.printDivider();
+        }
+    }
+
+    public void run() {
+        boolean isExit= false;
+        Parser parser = new Parser();
+
         do {
+            String line = ui.readCommand();
+            Ui.printDivider();
             try {
-                handleUserInput();
-            } catch (DukeException e){
-                System.out.println("I don't know what that means (u(エ)u)ゞ");
+                Command command = parser.parseCommand(line);
+                command.executeCommand(taskManager, ui, storage);
+                isExit= command.isExit();
+            } catch (InvalidCommandException e) {
+                System.out.println("e.getErrorMessage()");
+            } catch (InvalidIndexException e) {
+                System.out.println("e.getErrorMessage()");
             }
+            Ui.printDivider();
         } while (!isExit);
     }
 
-    // Handles user input
-    public static void handleUserInput () throws DukeException{
-        userInput = in.nextLine();
-        String[] splitUserInput = userInput.split(" ", 2);
-        String inputCommand = splitUserInput[0];
-
-        switch (inputCommand.toUpperCase()) {
-            case "LIST":
-                listAllTasks();
-                break;
-
-            case "BYE":
-                printGoodbye();
-                break;
-
-            case "DELETE":
-                try {
-                    int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
-                    deleteTask(taskNumber);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Which task?");
-                }
-                break;
-
-            case "SAVE":
-                saveToFile();
-                break;
-
-            case "DONE":
-                try {
-                    int taskNumber = Integer.parseInt(splitUserInput[1]) - 1;
-                    markTaskAsDone(taskNumber);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Which task?");
-                }
-                break;
-            case "TODO":
-                // Fallthrough
-            case "DEADLINE":
-                // Fallthrough
-            case "EVENT":
-                try {
-                    addTask(inputCommand.toUpperCase(), splitUserInput[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("You've forgotten to add a description!");
-                }
-                break;
-
-            default:
-                throw new InvalidCommandException();
-        }
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
 
