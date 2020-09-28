@@ -4,8 +4,9 @@ import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.ToDo;
 import duke.task.Event;
-import duke.ui.UI;
+import duke.ui.Ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -15,6 +16,7 @@ public class TaskManager {
     public TaskManager(){
         taskList = new ArrayList<>();
     }
+
     // Add task to taskList
     public void addTask(String taskType, String details){
         Task taskAdded;
@@ -31,46 +33,50 @@ public class TaskManager {
         }
         taskList.add(taskAdded);
         taskCount++;
-        UI.printDivider();
+        Ui.printDivider();
         System.out.println("\tAdded: " + taskAdded
                 + "\nNow you have " + taskCount
                 + " task(s) in your list!");
-        UI.printDivider();
+        Ui.printDivider();
     }
 
     // Removes task from taskList
     public void deleteTask(int taskNumber){
         Task task = taskList.get(taskNumber);
         taskList.remove(taskNumber);
-        UI.printDivider();
+        Ui.printDivider();
         System.out.println("\tRemoved: " + task
                 + "\nNow you have " + taskList.size()
                 + " task(s) in your list");
-        UI.printDivider();
+        Ui.printDivider();
     }
 
     // Marks task in taskList as done
     public void markTaskAsDone(int taskNumber){
         Task task = taskList.get(taskNumber);
         if (task.getStatus()){
-            UI.printDivider();
-            System.out.println("\tThis task has already been marked as done.");
+            Ui.printDivider();
+            System.out.println(Ui.TASK_MESSAGE_ALREADY_DONE);
         } else {
             task.markAsDone();
-            UI.printDivider();
-            System.out.println("\tNice! I've marked this task as done:");
+            Ui.printDivider();
+            System.out.println(Ui.TASK_MESSAGE_MARK_DONE);
         }
         System.out.println("\t\t" + task);
-        UI.printDivider();
+        Ui.printDivider();
     }
 
     // List all tasks in taskList
     public void listAllTasks(){
         System.out.println("Task List");
-        UI.printDivider();
+        Ui.printDivider();
         for (int i =0; i < taskList.size(); i++){
             System.out.println((i+1) + ". " + taskList.get(i));
         }
-        UI.printDivider();
+        Ui.printDivider();
+    }
+
+    public ArrayList<Task> getTasks(){
+        return taskList;
     }
 }
