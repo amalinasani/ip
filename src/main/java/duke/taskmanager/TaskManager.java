@@ -87,7 +87,7 @@ public class TaskManager {
     }
 
     /**
-     * Get taskList array list
+     * Get taskList as array list
      */
     public ArrayList<Task> getTasks(){
         return taskList;

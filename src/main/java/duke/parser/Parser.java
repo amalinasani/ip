@@ -6,6 +6,11 @@ import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 
 public class Parser {
+
+    /**
+     * Handles user command
+     * Create command object for user command
+     */
     public Command parseCommand(String userInput) throws InvalidCommandException, InvalidIndexException, InvalidArgumentException {
         String[] splitUserInput = userInput.split(" ", 2);
         String inputCommand = splitUserInput[0].toUpperCase();
