@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.lang.String;
-import java.util.ArrayList;
 
 import duke.command.Command;
 import duke.exception.*;
@@ -15,8 +14,8 @@ public class Duke {
 
     private static final String FILE_PATH = "data/duke.txt";
     private TaskManager taskManager;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     public Duke() {
         ui = new Ui();
@@ -26,9 +25,9 @@ public class Duke {
         try {
             storage.checkFileExists(FILE_PATH);
             taskManager = new TaskManager(storage.loadFromFile());
-            System.out.println("Load successful");
+            Ui.printLoadSuccessMessage();
         } catch (IOException e) {
-            System.out.println("Load error");
+            Ui.printLoadErrorMessage();
             taskManager = new TaskManager();
         } finally {
             Ui.printDivider();
@@ -41,17 +40,18 @@ public class Duke {
 
         do {
             String line = ui.readCommand();
-            Ui.printDivider();
             try {
                 Command command = parser.parseCommand(line);
                 command.executeCommand(taskManager, ui, storage);
                 isExit= command.isExit();
             } catch (InvalidCommandException e) {
-                System.out.println("e.getErrorMessage()");
-            } catch (InvalidIndexException e) {
-                System.out.println("e.getErrorMessage()");
+                Ui.printInvalidCommandMessage();
+            }  catch (InvalidIndexException e) {
+                Ui.printErrorNoNumMessage();
+            } catch (InvalidArgumentException e){
+                Ui.printErrorNoDescriptionMessage();
+            } catch (NullPointerException e){
             }
-            Ui.printDivider();
         } while (!isExit);
     }
 

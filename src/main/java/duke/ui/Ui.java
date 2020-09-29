@@ -1,14 +1,20 @@
 package duke.ui;
 
+import duke.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public static final String LINE_DIVIDER =
-            "\n=====================================================\n";
+            "=====================================================";
+
     public static final String DUKE_INTRODUCTION =
-            "\t\t\t\t\tHello from\n";
+            "\t\t\t\t\tHello from";
+
     public static final String DUKE_GREETINGS =
             "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?";
+
     public static final String LOGO_NAME =
             "  ____  ____   _      _       ____  ___ ___   ____ \n" +
              " /    ||    \\ | |    | |     /    ||   |   | /    |\n" +
@@ -43,24 +49,29 @@ public class Ui {
             "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
 
 
-    public static final String ERROR_MESSAGE_IOEXCEPTION = "IOException error has occurred";
-    public static final String STORAGE_MESSAGE_SUCCESSFUL_SAVE = "Successfully saved to file!";
-    public static final String STORAGE_MESSAGE_SUCCESSFUL_LOAD = "Loaded file successfully!";
+    public static final String ERROR_MESSAGE_IOEXCEPTION = "\tLoad Error";
+    public static final String ERROR_MESSAGE_NO_DESC = "\tYou forgot the description!";
+    public static final String ERROR_MESSAGE_NO_DATE = "\tYou forgot the date!";
+    public static final String ERROR_MESSAGE_INVALID_COMMAND = "\tSorry, I don't understand :(";
+    public static final String ERROR_MESSAGE_NO_NUM = "\tWhich task?";
+    public static final String ERROR_MESSAGE_NO_TASK = "\tYou don't have that task!";
+    public static final String STORAGE_MESSAGE_SUCCESSFUL_SAVE = "\tSuccessfully saved to file!";
+    public static final String STORAGE_MESSAGE_SUCCESSFUL_LOAD = "\tLoaded file successfully!";
     public static final String TASK_MESSAGE_ALREADY_DONE = "\tThis task has already been marked as done.";
     public static final String TASK_MESSAGE_MARK_DONE = "\tNice! I've marked this task as done:";
 
     private final Scanner in;
-
-    /**
-     * Read user input
-     */
     public Ui() {
         in = new Scanner(System.in);
     }
 
+    /**
+     * Read user input
+     */
     public String readCommand(){
         return in.nextLine();
     }
+
     /**
      * Prints line divider
      */
@@ -75,7 +86,6 @@ public class Ui {
         printDivider();
         System.out.println(DUKE_INTRODUCTION);
         System.out.println(LOGO_NAME);
-        printDivider();
         System.out.println(DUKE_GREETINGS);
         printDivider();
     }
@@ -87,5 +97,124 @@ public class Ui {
         printDivider();
         System.out.println(LOGO_BYE);
         printDivider();
+    }
+
+    /**
+     * Prints add task message
+     */
+    public static void printAddTaskMessage(Task taskAdded, int taskCount){
+        printDivider();
+        System.out.println("\tAdded: " + taskAdded
+                + "\nNow you have " + taskCount
+                + " task(s) in your list!");
+        printDivider();
+    }
+
+    /**
+     * Prints delete task message
+     */
+    public static void printDeleteTaskMessage(Task taskRemoved, int taskCount){
+        printDivider();
+        System.out.println("\tRemoved: " + taskRemoved
+                + "\nNow you have " + taskCount
+                + " task(s) in your list");
+        printDivider();
+    }
+
+    /**
+     * Prints task already done message
+     */
+    public static void printTaskAlreadyDoneMessage(Task taskDone) {
+        printDivider();
+        System.out.println(TASK_MESSAGE_ALREADY_DONE);
+        System.out.println("\t\t" + taskDone);
+    }
+
+    /**
+     * Prints task marked as done message
+     */
+    public static void printTaskMarkedDoneMessage(Task taskDone) {
+        printDivider();
+        System.out.println(TASK_MESSAGE_MARK_DONE);
+        System.out.println("\t\t" + taskDone);
+        printDivider();
+    }
+
+    /**
+     * Prints task list
+     */
+    public static void printTaskList(ArrayList<Task> taskList){
+        System.out.println("TASK LIST");
+        printDivider();
+        for (int i =0; i < taskList.size(); i++){
+            System.out.println((i+1) + ". " + taskList.get(i));
+        }
+        printDivider();
+    }
+
+    /**
+     * Prints error invalid command message
+     */
+    public static void printInvalidCommandMessage(){
+        printDivider();
+        System.out.println(ERROR_MESSAGE_INVALID_COMMAND);
+        printDivider();
+    }
+
+    /**
+     * Prints error no date message
+     */
+    public static void printErrorNoDateMessage(){
+        printDivider();
+        System.out.println(ERROR_MESSAGE_NO_DATE);
+        printDivider();
+    }
+
+    /**
+     * Prints error no description message
+     */
+    public static void printErrorNoDescriptionMessage(){
+        printDivider();
+        System.out.println(ERROR_MESSAGE_NO_DESC);
+        printDivider();
+    }
+
+    /**
+     * Prints error no number message
+     */
+    public static void printErrorNoNumMessage(){
+        printDivider();
+        System.out.println(ERROR_MESSAGE_NO_NUM);
+        printDivider();
+    }
+
+    /**
+     * Prints error no task message
+     */
+    public static void printErrorNoTaskMessage(){
+        printDivider();
+        System.out.println(ERROR_MESSAGE_NO_TASK);
+        printDivider();
+    }
+
+    /**
+     * Prints load error message
+     */
+    public static void printLoadErrorMessage(){
+        System.out.println(ERROR_MESSAGE_IOEXCEPTION);
+    }
+
+    /**
+     * Prints load success message
+     */
+    public static void printLoadSuccessMessage(){
+        System.out.println(STORAGE_MESSAGE_SUCCESSFUL_LOAD);
+    }
+
+    /**
+     * Prints successful save message
+     */
+    public static void printSaveSuccessMessage(){
+        System.out.println(STORAGE_MESSAGE_SUCCESSFUL_SAVE);
     }
 }

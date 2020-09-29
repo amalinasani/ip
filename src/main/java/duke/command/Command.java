@@ -1,5 +1,4 @@
 package duke.command;
-import duke.exception.InvalidIndexException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.taskmanager.TaskManager;
@@ -14,7 +13,7 @@ public abstract class Command {
     public static final String COMMAND_DEADLINE = "DEADLINE";
     public static final String COMMAND_EVENT = "EVENT";
 
-    public abstract void executeCommand(TaskManager taskManager, Ui ui, Storage storage) throws InvalidIndexException;
+    public abstract void executeCommand(TaskManager taskManager, Ui ui, Storage storage);
     public boolean isExit(){
         return false;
     }

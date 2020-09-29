@@ -24,9 +24,9 @@ public class Storage {
         }
 
         try {
-            File dataFile = checkFileExists(filePath);
+            checkFileExists(filePath);
         } catch (IOException e){
-            System.out.println(Ui.ERROR_MESSAGE_IOEXCEPTION);
+            Ui.printLoadErrorMessage();
         }
     }
 
@@ -71,8 +71,7 @@ public class Storage {
                     taskList.get(taskIndex).markAsDone();
                 }
             }
-        } catch(IOException | FileFormatException e){
-            System.out.println(Ui.ERROR_MESSAGE_IOEXCEPTION);
+        } catch(FileFormatException | IOException e){
         }
         return taskList;
     }
@@ -83,11 +82,15 @@ public class Storage {
     public void saveToFile(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : taskList) {
-            fw.write(task.getTaskType() + " | " + task.getStatus() + " | "
-                    + task.getDescription() + " | " + task.getDate() + System.lineSeparator());
+            int status = (task.getStatus() ? 1 : 0);
+            fw.write(task.getTaskType()
+                    + " | " + status
+                    + " | " + task.getDescription()
+                    + " | " + task.getDate()
+                    + System.lineSeparator());
         }
         fw.close();
-        System.out.println(Ui.STORAGE_MESSAGE_SUCCESSFUL_SAVE);
+        Ui.printSaveSuccessMessage();
     }
 
 }
