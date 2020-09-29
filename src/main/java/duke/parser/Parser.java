@@ -47,6 +47,15 @@ public class Parser {
             }
             break;
 
+        case Command.COMMAND_FIND:
+            try {
+                String word = splitUserInput[1].toUpperCase();
+                command = new FindCommand(word);
+            } catch(IndexOutOfBoundsException e){
+                throw new InvalidIndexException();
+            }
+            break;
+
         case Command.COMMAND_TODO:
             // Fallthrough
         case Command.COMMAND_DEADLINE:
