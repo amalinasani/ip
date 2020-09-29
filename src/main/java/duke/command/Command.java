@@ -12,6 +12,7 @@ public abstract class Command {
     public static final String COMMAND_TODO = "TODO";
     public static final String COMMAND_DEADLINE = "DEADLINE";
     public static final String COMMAND_EVENT = "EVENT";
+    public static final String COMMAND_FIND = "FIND";
 
     public abstract void executeCommand(TaskManager taskManager, Ui ui, Storage storage);
     public boolean isExit(){

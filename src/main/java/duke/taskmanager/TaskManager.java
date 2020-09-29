@@ -92,4 +92,25 @@ public class TaskManager {
     public ArrayList<Task> getTasks(){
         return taskList;
     }
+
+    /**
+     * Find matching tasks in task list
+     */
+    public void findTask(String word) {
+        ArrayList<Task> matchedTaskList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            String taskDetails = task.getDescription().toUpperCase();
+            if (taskDetails.contains(word)) {
+                matchedTaskList.add(task);
+            }
+        }
+
+        if (matchedTaskList.size() == 0) {
+            Ui.printNoMatchedTaskMessage();
+        } else {
+            Ui.printMatchedTaskMessage();
+            Ui.printTaskList(matchedTaskList);
+        }
+    }
 }
