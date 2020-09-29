@@ -54,9 +54,9 @@ public class Ui {
     public static final String STORAGE_MESSAGE_SUCCESSFUL_LOAD = "\tLoaded file successfully!";
     public static final String TASK_MESSAGE_ALREADY_DONE = "\tThis task has already been marked as done.";
     public static final String TASK_MESSAGE_MARK_DONE = "\tNice! I've marked this task as done:";
-    public static final String TASK_MESSAGE_MATCHED_TASK = "\tThese are the matching tasks from your list!";
+    public static final String TASK_MESSAGE_MATCHED_TASK = "These are the matching tasks from your list!";
     public static final String TASK_MESSAGE_NO_MATCHES = "\tYou have no matching tasks.";
-    public static final String TASK_MESSAGE_LIST = "\tTASK LIST";
+    public static final String TASK_MESSAGE_LIST = "TASK LIST";
 
     private final Scanner in;
     public Ui() {
