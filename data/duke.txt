@@ -1,0 +1,2 @@
+D | 0 | return book  | Monday
+E | 0 | book fair  | 5pm Tuesday

@@ -10,6 +10,11 @@ import duke.storage.Storage;
 import duke.taskmanager.TaskManager;
 import duke.ui.Ui;
 
+/**
+ * Main class for Duke
+ *
+ * @author Amalina Sani
+ * */
 public class Duke {
 
     private static final String FILE_PATH = "data/duke.txt";
@@ -17,6 +22,11 @@ public class Duke {
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructor for Duke class
+     * Catches IOException
+     *
+     * */
     public Duke() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -34,6 +44,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Parses user input and handles task operations while program is not terminated
+     * */
     public void run() {
         boolean isExit= false;
         Parser parser = new Parser();
@@ -55,6 +68,10 @@ public class Duke {
         } while (!isExit);
     }
 
+    /**
+     * Main function for Duke
+     *
+     * */
     public static void main(String[] args) {
         new Duke().run();
     }

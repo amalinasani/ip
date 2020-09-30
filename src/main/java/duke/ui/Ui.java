@@ -5,14 +5,19 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for user interface
+ *
+ * @author Amalina Sani
+ * */
 public class Ui {
-    public static final String LINE_DIVIDER =
+    private static final String LINE_DIVIDER =
             "=====================================================";
-    public static final String DUKE_INTRODUCTION =
+    private static final String DUKE_INTRODUCTION =
             "\t\t\t\t\tHello from";
-    public static final String DUKE_GREETINGS =
+    private static final String DUKE_GREETINGS =
             "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?";
-    public static final String LOGO_NAME =
+    private static final String LOGO_NAME =
             "  ____  ____   _      _       ____  ___ ___   ____ \n" +
              " /    ||    \\ | |    | |     /    ||   |   | /    |\n" +
              "|  o  ||  _  || |    | |    |  o  || _   _ ||  o  |\n" +
@@ -20,7 +25,7 @@ public class Ui {
              "|  _  ||  |  ||     ||     ||  _  ||   |   ||  _  |\n" +
              "|  |  ||  |  ||     ||     ||  |  ||   |   ||  |  |\n" +
              "|__|__||__|__||_____||_____||__|__||___|___||__|__|";
-    public static final String LOGO_BYE =
+    private static final String LOGO_BYE =
             "\n ____                ▓▓  ▓▓                                \n" +
             "|    \\            ▓▓░░▓▓░░▓▓                              \n" +
             "|  o  )          ▓▓▓▓░░░░░░▓▓                              \n" +
@@ -44,27 +49,32 @@ public class Ui {
             "|_____|                ▓▓░░▓▓░░▓▓  ▓▓░░▓▓░░▓▓              \n" +
             "                         ▒▒  ▓▓      ▓▓  ▓▓  ";
 
-    public static final String ERROR_MESSAGE_IOEXCEPTION = "\tLoad Error";
-    public static final String ERROR_MESSAGE_NO_DESC = "\tYou forgot the description!";
-    public static final String ERROR_MESSAGE_NO_DATE = "\tYou forgot the date!";
-    public static final String ERROR_MESSAGE_INVALID_COMMAND = "\tSorry, I don't understand :(";
-    public static final String ERROR_MESSAGE_NO_NUM = "\tWhich task?";
-    public static final String ERROR_MESSAGE_NO_TASK = "\tYou don't have that task!";
-    public static final String STORAGE_MESSAGE_SUCCESSFUL_SAVE = "\tSuccessfully saved to file!";
-    public static final String STORAGE_MESSAGE_SUCCESSFUL_LOAD = "\tLoaded file successfully!";
-    public static final String TASK_MESSAGE_ALREADY_DONE = "\tThis task has already been marked as done.";
-    public static final String TASK_MESSAGE_MARK_DONE = "\tNice! I've marked this task as done:";
-    public static final String TASK_MESSAGE_MATCHED_TASK = "These are the matching tasks from your list!";
-    public static final String TASK_MESSAGE_NO_MATCHES = "\tYou have no matching tasks.";
-    public static final String TASK_MESSAGE_LIST = "TASK LIST";
+    private static final String ERROR_MESSAGE_IOEXCEPTION = "\tLoad Error";
+    private static final String ERROR_MESSAGE_NO_DESC = "\tYou forgot the description!";
+    private static final String ERROR_MESSAGE_NO_DATE = "\tYou forgot the date!";
+    private static final String ERROR_MESSAGE_INVALID_COMMAND = "\tSorry, I don't understand :(";
+    private static final String ERROR_MESSAGE_NO_NUM = "\tWhich task?";
+    private static final String ERROR_MESSAGE_NO_TASK = "\tYou don't have that task!";
+    private static final String STORAGE_MESSAGE_SUCCESSFUL_SAVE = "\tSuccessfully saved to file!";
+    private static final String STORAGE_MESSAGE_SUCCESSFUL_LOAD = "\tLoaded file successfully!";
+    private static final String TASK_MESSAGE_ALREADY_DONE = "\tThis task has already been marked as done.";
+    private static final String TASK_MESSAGE_MARK_DONE = "\tNice! I've marked this task as done:";
+    private static final String TASK_MESSAGE_MATCHED_TASK = "These are the matching tasks from your list!";
+    private static final String TASK_MESSAGE_NO_MATCHES = "\tYou have no matching tasks.";
+    private static final String TASK_MESSAGE_LIST = "TASK LIST";
 
     private final Scanner in;
+
+    /**
+     * Constructor for Ui Class
+     */
     public Ui() {
         in = new Scanner(System.in);
     }
 
     /**
-     * Read user input
+     * Reads user input
+     * @return The String read from next line
      */
     public String readCommand(){
         return in.nextLine();
@@ -80,7 +90,7 @@ public class Ui {
     /**
      * Prints greetings and logo
      */
-    public void printGreeting(){
+    public static void printGreeting(){
         printDivider();
         System.out.println(DUKE_INTRODUCTION);
         System.out.println(LOGO_NAME);
@@ -91,7 +101,7 @@ public class Ui {
     /**
      * Prints goodbye message
      */
-    public void printGoodbye(){
+    public static void printGoodbye(){
         printDivider();
         System.out.println(LOGO_BYE);
         printDivider();
