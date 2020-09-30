@@ -26,6 +26,9 @@ Find tasks containing a keyword.
 ### 8. Save task list
 Save your task list to a .txt file.
 
+### 9. Help 
+View list of available commands.
+
 
 
 ## Usage
@@ -165,5 +168,33 @@ Expected outcome:
 
 ```	
 	Successfully saved to file!
+```
+
+### `help` - View help
+
+View list of available commands
+
+Example of usage: 
+
+`help`
+
+Expected outcome:
+
+```	
+=====================================================
+	Command List
+		Add ToDo --------- todo <task desc>
+		Add Deadline ----- deadline <task desc> \by <date>
+		Add Event -------- event <task desc> \by <date>
+		Mark Done -------- done <task index>
+		Delete task ------ delete <task index>
+		List tasks ------- list
+		Save task list --- save
+		Find task -------- find <keyword>
+		Command list ----- help
+		Exit Anyllama ---- bye
+
+=====================================================
+
 ```
 
