@@ -12,23 +12,24 @@ import java.util.Scanner;
  * */
 public class Ui {
     private static final String LINE_DIVIDER =
-            "=====================================================";
+            "=========================================================================";
     private static final String DUKE_INTRODUCTION =
             "\t\t\t\t\tHello from";
     private static final String DUKE_GREETINGS =
-            "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?";
+            "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?"
+            + "\n\n\tType \"help\" to view the list of available commands.";
     private static final String DUKE_HELP =
-            "\tCommand List\n"
+              "\t\tFunction           Command\n"
             + "\t\tAdd ToDo --------- todo <task desc>\n"
-            + "\t\tAdd Deadline ----- deadline <task desc> \\by <date>\n"
-            + "\t\tAdd Event -------- event <task desc> \\by <date>\n"
-            + "\t\tMark Done -------- done <task index>\n"
-            + "\t\tDelete task ------ delete <task index>\n"
-            + "\t\tList tasks ------- list\n"
-            + "\t\tSave task list --- save\n"
-            + "\t\tFind task -------- find <keyword>\n"
-            + "\t\tCommand list ----- help\n"
-            + "\t\tExit Anyllama ---- bye\n";
+            + "\t\tAdd Deadline ----- deadline <task desc> /by <date>\n"
+            + "\t\tAdd Event -------- event <task desc> /at <date>\n"
+            + "\t\tMark Done -------- done <task number>\n"
+            + "\t\tDelete Task ------ delete <task number>\n"
+            + "\t\tList Tasks ------- list\n"
+            + "\t\tSave Task List --- save\n"
+            + "\t\tFind Task -------- find <keyword>\n"
+            + "\t\tCommand List ----- help\n"
+            + "\t\tExit Anyllama ---- bye";
     private static final String LOGO_NAME =
             "  ____  ____   _      _       ____  ___ ___   ____ \n" +
              " /    ||    \\ | |    | |     /    ||   |   | /    |\n" +
