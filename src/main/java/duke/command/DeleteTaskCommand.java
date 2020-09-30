@@ -8,7 +8,7 @@ public class DeleteTaskCommand extends Command{
     private final int  index;
 
     public DeleteTaskCommand(int index){
-        this.index = index;
+        this.index = index-1;
     }
 
     @Override

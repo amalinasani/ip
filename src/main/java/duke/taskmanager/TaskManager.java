@@ -98,8 +98,7 @@ public class TaskManager {
      */
     public void findTask(String word) {
         ArrayList<Task> matchedTaskList = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
+        for (Task task : taskList) {
             String taskDetails = task.getDescription().toUpperCase();
             if (taskDetails.contains(word)) {
                 matchedTaskList.add(task);
