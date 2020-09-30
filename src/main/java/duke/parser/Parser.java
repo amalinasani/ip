@@ -5,11 +5,18 @@ import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 
+/**
+ * Class to handle user input
+ *
+ * @author Amalina Sani
+ */
 public class Parser {
 
     /**
-     * Handles user command
-     * Create command object for user command
+     * Creates command object for user commands (List, Bye, Save, Delete, Done, Find, Todo, Deadline, Event)
+     * Throws InvalidCommandException, InvalidIndexException, InvalidArgumentException
+     *
+     * @param userInput The string of user input
      */
     public Command parseCommand(String userInput) throws InvalidCommandException, InvalidIndexException, InvalidArgumentException {
         String[] splitUserInput = userInput.split(" ", 2);
@@ -31,9 +38,9 @@ public class Parser {
 
         case Command.COMMAND_DELETE:
             try {
-                int index = Integer.parseInt(splitUserInput[1]);
+                int index = Integer.parseInt(splitUserInput[1])-1;
                 command = new DeleteTaskCommand(index);
-            } catch(IndexOutOfBoundsException e){
+            } catch(IndexOutOfBoundsException | NumberFormatException e){
                 throw new InvalidIndexException();
             }
             break;
@@ -42,7 +49,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(splitUserInput[1]) - 1;
                 command = new DoneCommand(index);
-            } catch(IndexOutOfBoundsException e){
+            } catch(IndexOutOfBoundsException | NumberFormatException e){
                 throw new InvalidIndexException();
             }
             break;

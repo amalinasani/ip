@@ -13,10 +13,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to store taskList in .txt file, and load tasks from .txt file
+ *
+ * @author Amalina Sani
+ */
 public class Storage {
     private static final String FILE_DIR = "data";
     private static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Constructor for Storage class
+     * Catches IOException
+     *
+     * @param filePath The storage file path
+     * */
     public Storage(String filePath){
         File fileDir = new File(FILE_DIR);
         if (!fileDir.exists()){
@@ -31,7 +42,10 @@ public class Storage {
     }
 
     /**
-     * Check if file exists
+     * Checks if file exists and creates new file if it does not exist
+     *
+     * @param filePath The storage file path
+     * @return dataFile The file for storing data
      */
     public File checkFileExists(String filePath) throws IOException{
         File dataFile = new File(filePath);
@@ -42,7 +56,10 @@ public class Storage {
     }
 
     /**
-     * Load data from file
+     * Loads data from file
+     * Catches FileFormatException and IOException
+     *
+     * @return The task list ArrayList
      */
     public ArrayList<Task> loadFromFile(){
         ArrayList<Task> taskList = new ArrayList<>();
@@ -77,7 +94,10 @@ public class Storage {
     }
 
     /**
-     * Save task list to file
+     * Saves task list to file
+     *
+     * @param taskList The task list array list to be saved
+     * @throws IOException
      */
     public void saveToFile(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);

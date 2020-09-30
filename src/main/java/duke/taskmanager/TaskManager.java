@@ -8,19 +8,38 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Class to handle commands:
+ * addTask, deleteTask, markTaskAsDone, listAllTasks, getTasks, findTasks
+ *
+ * @author Amalina Sani
+ */
 public class TaskManager {
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructor for TaskManager class
+     *
+     * */
     public TaskManager(){
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Constructor for TaskManager class given a taskList
+     *
+     * @param taskList The ArrayList of tasks
+     * */
     public TaskManager(ArrayList<Task> taskList){
         this.taskList = taskList;
     }
 
     /**
-     * Add task to taskList
+     * Adds a task to taskList
+     * Catches IndexOutOfBoundsException
+     *
+     * @param taskType The task type (Todo, Deadline, or Event)
+     * @param details The task details
      */
     public void addTask(String taskType, String details){
         Task taskAdded;
@@ -48,7 +67,10 @@ public class TaskManager {
     }
 
     /**
-     * Delete task from taskList
+     * Deletes task from taskList
+     * Catches IndexOutOfBoundsException
+     *
+     * @param taskNumber The index of the task to be deleted
      */
     public void deleteTask(int taskNumber){
         try {
@@ -63,6 +85,9 @@ public class TaskManager {
 
     /**
      * Mark task in taskList as done
+     * Catches IndexOutOfBoundsException
+     *
+     * @param taskNumber The index of the task to be marked as done
      */
     public void markTaskAsDone(int taskNumber){
         try {
@@ -87,14 +112,18 @@ public class TaskManager {
     }
 
     /**
-     * Get taskList as array list
+     * Get taskList as ArrayList
+     *
+     * @return ArrayList of all tasks in taskList
      */
     public ArrayList<Task> getTasks(){
         return taskList;
     }
 
     /**
-     * Find matching tasks in task list
+     * Find matching tasks in task list given a keyword
+     *
+     * @param word The keyword String
      */
     public void findTask(String word) {
         ArrayList<Task> matchedTaskList = new ArrayList<>();
