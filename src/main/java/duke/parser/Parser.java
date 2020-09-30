@@ -35,7 +35,9 @@ public class Parser {
         case Command.COMMAND_SAVE:
             command = new SaveCommand();
             break;
-
+        case Command.COMMAND_HELP:
+            command = new HelpCommand();
+            break;
         case Command.COMMAND_DELETE:
             try {
                 int index = Integer.parseInt(splitUserInput[1])-1;

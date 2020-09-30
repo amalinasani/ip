@@ -18,7 +18,7 @@ public abstract class Command {
     public static final String COMMAND_DEADLINE = "DEADLINE";
     public static final String COMMAND_EVENT = "EVENT";
     public static final String COMMAND_FIND = "FIND";
-
+    public static final String COMMAND_HELP = "HELP";
     /**
      * Executes command
      *

@@ -17,6 +17,18 @@ public class Ui {
             "\t\t\t\t\tHello from";
     private static final String DUKE_GREETINGS =
             "\tHello! I'm your friendly neighbourhood Llama.\n\tWhat can I do for you?";
+    private static final String DUKE_HELP =
+            "\tCommand List\n"
+            + "\t\tAdd ToDo --------- todo <task desc>\n"
+            + "\t\tAdd Deadline ----- deadline <task desc> \\by <date>\n"
+            + "\t\tAdd Event -------- event <task desc> \\by <date>\n"
+            + "\t\tMark Done -------- done <task index>\n"
+            + "\t\tDelete task ------ delete <task index>\n"
+            + "\t\tList tasks ------- list\n"
+            + "\t\tSave task list --- save\n"
+            + "\t\tFind task -------- find <keyword>\n"
+            + "\t\tCommand list ----- help\n"
+            + "\t\tExit Anyllama ---- bye\n";
     private static final String LOGO_NAME =
             "  ____  ____   _      _       ____  ___ ___   ____ \n" +
              " /    ||    \\ | |    | |     /    ||   |   | /    |\n" +
@@ -241,4 +253,14 @@ public class Ui {
         System.out.println(TASK_MESSAGE_NO_MATCHES);
         printDivider();
     }
+
+    /**
+     * Prints help message
+     */
+    public static void printHelp(){
+        printDivider();
+        System.out.println(DUKE_HELP);
+        printDivider();
+    }
+
 }
